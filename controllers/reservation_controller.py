@@ -72,5 +72,19 @@ def perfil_usuario():
     user_id = session['user_id']
     user = UserDAO.get_user_by_id(user_id)
     reservations = ReservationDAO.get_reservations_by_user_id(user_id)
+    
+    # Obter modelos de carros associados às reservas
+    detailed_reservations = []
+    for reservation in reservations:
+        car = CarDAO.get_car_by_id(reservation.car_id)
+        detailed_reservation = {
+            "id": reservation.id,
+            "car_model": car.model,
+            "days": reservation.days,
+            "total_value": reservation.total_value,
+            "reservation_date": reservation.reservation_date,
+            "end_date": reservation.end_date
+        }
+        detailed_reservations.append(detailed_reservation)
 
-    return render_template('perfil_usuario.html', user=user, reservations=reservations)
+    return render_template('perfil_usuario.html', user=user, reservations=detailed_reservations)

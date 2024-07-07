@@ -1,53 +1,89 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='cadastrar.css') }}">
     <title>Cadastrar Usuário</title>
 </head>
 <body>
-    <h1>Cadastrar Usuário</h1>
-    
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-        <ul>
-            {% for category, message in messages %}
-                {% if category == 'danger_cadastro' %}
-                    <li class="{{ category }}">{{ message }}</li>
-                {% endif %}
-            {% endfor %}
-        </ul>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/carros">Nossos Carros</a>
+        <a href="/reservas/fazer">Reservar</a>
+
+        {% if 'user_id' not in session %}
+            <a href="/usuarios/login">Fazer login</a>
+            <a href="/usuarios/cadastrar">Cadastre-se</a>
         {% endif %}
-    {% endwith %}
-    
-    <form action="{{ url_for('user_bp.cadastrar_usuario') }}" method="POST">
-        <label for="name">Nome:</label>
-        <input type="text" id="name" name="name"><br><br>
+
+        {% if 'user_id' in session %}
+            <a href="/reservas/perfil">Ver Perfil</a>
+            <a href="/usuarios/logout">Logout</a>
+        {% endif %}
+    </nav>
+
+    <form action="/usuarios/cadastrar" method="post">
+        <h2>Dados pessoais</h2>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul>
+                {% for category, message in messages %}
+                    {% if category == 'danger_cadastro' %}
+                        <li class="{{ category }}">{{ message }}</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {% endwith %}
+        <div class="input-group">
+            <label for="name">Nome do Usuario</label>
+            <input type="text" id="name" name="name">
+        </div>
+
+        <div class="input-group">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email">
+        </div>
+
+        <div class="input-group">
+            <div class="input-half">
+                <label for="senha">Senha da Conta:</label>
+                <input type="password" id="senha" name="senha">
+            </div>
+
+            <div class="input-half">
+                <label for="phone_number">Telefone:</label><br>
+                <input type="text" id="phone_number" name="phone_number">
+            </div>
+        </div>     
         
-        <label for="address">Endereço:</label>
-        <input type="text" id="address" name="address"><br><br>
-        
-        <label for="phone_number">Telefone:</label>
-        <input type="text" id="phone_number" name="phone_number"><br><br>
-        
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email"><br><br>
-        
-        <label for="card_name">Nome no Cartão:</label>
-        <input type="text" id="card_name" name="card_name"><br><br>
-        
-        <label for="card_number">Número do Cartão:</label>
-        <input type="text" id="card_number" name="card_number"><br><br>
-        
-        <label for="security_code">Código de Segurança:</label>
-        <input type="text" id="security_code" name="security_code"><br><br>
-        
-        <label for="senha">Senha:</label>
-        <input type="password" id="senha" name="senha"><br><br>
-        
-        <input type="submit" value="Cadastrar">
+        <h2>Endereço</h2>
+        <div class="input-group">
+            <label for="address">Endereço</label>
+            <input type="text" id="address" name="address">
+        </div>
+
+        <h2>Dados de Pagamentos</h2>
+        <div class="input-group">
+            <label for="card_name">Nome no Cartão</label>
+            <input type="text" id="card_name" name="card_name">
+        </div>
+        <div class="input-group">
+            <label for="card_number">Número no Cartão</label>
+            <input type="text" id="card_number" name="card_number">
+        </div>
+        <div class="input-group">
+            <div class="input-half">
+                <label for="expiry_date">Data de Validade:</label>
+                <input type="month" id="expiry_date" name="expiry_date">
+            </div>
+
+            <div class="input-half">
+                <label for="security_code">Código de Segurança:</label>
+                <input type="text" id="security_code" name="security_code">
+            </div>
+        </div>      
+
+        <center><input type="submit" value="Cadastrar"></center>
     </form>
-    
-    <a href="/">Voltar ao Menu Principal</a>
 </body>
 </html>

@@ -4,5 +4,6 @@ class Card(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     card_name = db.Column(db.String(50), nullable=False)
     card_number = db.Column(db.String(20), nullable=False)
+    expiry_date = db.Column(db.String(7), nullable=False)  # YYYY-MM
     security_code = db.Column(db.String(4), nullable=False)
     user = db.relationship('User', backref='card', uselist=False)

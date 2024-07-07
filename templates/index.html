@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opencar</title>
+</head>
+<body>
+    <h1>Bem-vindo ao Opencar</h1>
+    <ul>
+        {% if 'user_id' not in session %}
+            <li><a href="/usuarios/login">Fazer login</a></li>
+           
+        {% endif %}
+        <li><a href="/usuarios/cadastrar">Cadastrar Usuário</a></li>
+        <li><a href="/reservas/fazer">Fazer Reserva</a></li>
+        <li><a href="/usuarios">Exibir Usuários</a></li>
+        <li><a href="/carros">Exibir Carros</a></li>
+        <li><a href="/reservas">Exibir Reservas</a></li>
+        
+        {% if 'user_id' in session %}
+            <li><a href="/reservas/perfil">Ver Perfil</a></li>
+            <li><a href="/usuarios/logout">Logout</a></li>
+        {% endif %}
+    </ul>
+</body>
+</html>

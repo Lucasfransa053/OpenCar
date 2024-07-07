@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Perfil do Usuário</title>
+</head>
+<body>
+    <h1>Perfil do Usuário</h1>
+    <h2>Informações Pessoais</h2>
+    <p><strong>Nome:</strong> {{ user.name }}</p>
+    <p><strong>Endereço:</strong> {{ user.address }}</p>
+    <p><strong>Telefone:</strong> {{ user.phone_number }}</p>
+    <p><strong>E-mail:</strong> {{ user.email }}</p>
+    
+    <h2>Reservas</h2>
+    {% if reservations %}
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID da Reserva</th>
+                    <th>ID do Carro</th>
+                    <th>Dias</th>
+                    <th>Valor Total</th>
+                    <th>Data da Reserva</th>
+                    <th>Data de Término</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reservation in reservations %}
+                    <tr>
+                        <td>{{ reservation.id }}</td>
+                        <td>{{ reservation.car_id }}</td>
+                        <td>{{ reservation.days }}</td>
+                        <td>{{ reservation.total_value }}</td>
+                        <td>{{ reservation.reservation_date.strftime('%d/%m/%Y') }}</td>
+                        <td>{{ reservation.end_date.strftime('%d/%m/%Y') }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Você não tem reservas.</p>
+    {% endif %}
+    <a href="{{ url_for('index') }}">Voltar ao Menu Principal</a>
+    <a href="{{ url_for('user_bp.logout') }}">Logout</a>
+</body>
+</html>

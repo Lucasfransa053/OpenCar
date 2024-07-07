@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carros Disponíveis</title>
+</head>
+<body>
+    <h1>Carros Disponíveis</h1>
+    <ul>
+        {% for car in cars %}
+            <li>{{ car.model }} - R$ {{ car.price_per_day }} por dia</li>
+        {% endfor %}
+    </ul>
+    <a href="/">Voltar ao Menu Principal</a>
+</body>
+</html>

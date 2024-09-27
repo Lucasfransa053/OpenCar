@@ -9,6 +9,7 @@ class User(db.Model):
     card_id = db.Column(db.Integer, db.ForeignKey('card.id'), nullable=False)
     reservations = db.relationship('Reservation', backref='user', lazy=True)
     senha_hash = db.Column(db.String(128), nullable=False)
+    is_admin = db.Column(db.Boolean, default=False)  # Campo para indicar se o usuário é administrador
 
     def set_password(self, senha):
         self.senha_hash = generate_password_hash(senha)
